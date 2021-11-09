@@ -85,7 +85,7 @@ pipeline {
 
             steps { 
 
-                sh "docker rmi $registry:$BUILD_NUMBER" 
+                sh "docker system prune -a --volumes" 
 
             }
 
