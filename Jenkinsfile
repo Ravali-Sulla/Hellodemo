@@ -24,7 +24,6 @@ pipeline {
             }
 
         } 
-
         stage('Building our image') { 
 
             steps { 
@@ -56,6 +55,31 @@ pipeline {
             }
 
         } 
+        stage('puling our image and running as a container') { 
+
+            steps { 
+
+                script { 
+                 
+		    def image
+
+		    docker.withRegistry( '', registryCredential ) { 
+
+
+                    image = docker.image('ravalis123/demo:$BUILD_NUMBER')
+
+		    image.pull()
+		
+		    sh 'docker run  ravalis123/demo:$BUILD_NUMBER'
+
+                }
+
+            } 
+
+        }
+	
+	}
+       
 
         stage('Cleaning up') { 
 
